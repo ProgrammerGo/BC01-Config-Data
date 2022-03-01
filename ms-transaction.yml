@@ -1,0 +1,35 @@
+server:
+  port:8080
+spring:
+  data:
+    mongodb:
+      database: transactions
+      host: localhost
+      port: 27017
+info:
+  app:
+    name: Spring Boot Actuator Demo
+    web: *
+  hello: Hi there!!!
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: health, info, refresh, restart, env
+  endpoint:
+    health:
+      enabled: true
+    info:
+      enabled: true
+    refresh:
+      enabled: true
+    restart:
+      enabled: true
+    env:
+      enabled: true
+logging:
+  level:
+    root: info
+  health:
+    show-details: always
