@@ -1,5 +1,9 @@
+application:
+  config:
+    profile: dev
+
 server:
-  port: 8084
+  port: 8081
 spring:
   data:
     mongodb:

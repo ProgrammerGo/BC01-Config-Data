@@ -1,9 +1,13 @@
+application:
+  config:
+    profile: dev
+
 server:
-  port:8083
+  port:8085
 spring:
   data:
     mongodb:
-      database: accounts
+      database: payments
       host: localhost
       port: 27017
 info:

@@ -1,0 +1,119 @@
+version: '3.9'
+services:
+    config-server:
+        image:  bootcamp2022/config-server
+        restart: always
+        ports:
+            - 9010:9010
+  
+    eureka-server:
+        image:  bootcamp2022/eureka-server
+        restart: always
+        ports:
+            - 8761:8761
+        depends_on:
+            config-server:
+                condition: service_started
+                
+    mongodb:
+        image: mongo
+        ports:
+            - 27017:27017
+        #environment:
+            #- MONGO_INITDB_ROOT_USERNAME=bootcamp
+            #- MONGO_INITDB_ROOT_PASSWORD=secret
+            
+    server-gateway:
+        image:  bootcamp2022/server-gateway
+        restart: always
+        ports:
+            - 9020:9020
+        depends_on:
+            eureka-server:
+                condition: service_started
+                
+    ms-customer:
+        image:  bootcamp2022/ms-customer
+        restart: always
+        ports:
+            - 8081:8081
+        depends_on:
+            mongodb:
+                condition: service_started
+            config-server:
+                condition: service_started
+            eureka-server:
+                condition: service_started
+            server-gateway:
+                condition: service_started
+        environment: 
+            #- MONGODB_CONNSTRING=mongodb://bootcamp:secret@mongodb
+            spring.data.mongodb.host: mongodb
+    ms-account:
+        image:  bootcamp2022/ms-account
+        restart: always
+        ports:
+            - 8082:8082
+        depends_on:
+            mongodb:
+                condition: service_started
+            config-server:
+                condition: service_started
+            eureka-server:
+                condition: service_started
+            server-gateway:
+                condition: service_started
+        environment: 
+            #- MONGODB_CONNSTRING=mongodb://bootcamp:secret@mongodb
+            spring.data.mongodb.host: mongodb
+    ms-credit:
+        image:  bootcamp2022/ms-credit
+        restart: always
+        ports:
+            - 8083:8083
+        depends_on:
+            mongodb:
+                condition: service_started
+            config-server:
+                condition: service_started
+            eureka-server:
+                condition: service_started
+            server-gateway:
+                condition: service_started
+        environment: 
+            #- MONGODB_CONNSTRING=mongodb://bootcamp:secret@mongodb
+            spring.data.mongodb.host: mongodb
+    ms-transaction:
+        image:  bootcamp2022/ms-transaction
+        restart: always
+        ports:
+            - 8084:8084
+        depends_on:
+            mongodb:
+                condition: service_started
+            config-server:
+                condition: service_started
+            eureka-server:
+                condition: service_started
+            server-gateway:
+                condition: service_started
+        environment: 
+            #- MONGODB_CONNSTRING=mongodb://bootcamp:secret@mongodb
+            spring.data.mongodb.host: mongodb
+    ms-payment:
+        image:  bootcamp2022/ms-payment
+        restart: always
+        ports:
+            - 8085:8085
+        depends_on:
+            mongodb:
+                condition: service_started
+            config-server:
+                condition: service_started
+            eureka-server:
+                condition: service_started
+            server-gateway:
+                condition: service_started
+        environment: 
+            #- MONGODB_CONNSTRING=mongodb://bootcamp:secret@mongodb
+            spring.data.mongodb.host: mongodb
