@@ -1,20 +1,24 @@
 application:
+  location: config (Github)
   config:
     profile: dev
-
-server:
-  port:8084
+    description: valor obtenido desde "ms-transaction.yml"
 spring:
   data:
     mongodb:
-      database: transactions
-      host: localhost
+      database: mongodb
+      #host: localhost
+      host: mongodb
       port: 27017
-info:
-  app:
-    name: Spring Boot Actuator Demo
-    web: *
-  hello: Hi there!!!
+server:
+  port: 8084
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+      #defaultZone: http://eureka-server:8761/eureka
+
 management:
   endpoints:
     enabled-by-default: false
@@ -32,8 +36,3 @@ management:
       enabled: true
     env:
       enabled: true
-logging:
-  level:
-    root: info
-  health:
-    show-details: always
